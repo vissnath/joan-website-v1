@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joan from Legal — Beta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Schibsted+Grotesk:wght@400;500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#e2e1cf;
+    --bg-soft:#eceadb;
+    --bg-card:#edecdf;
+    --blue:#2b6090;
+    --blue-deep:#214c72;
+    --blue-ink:#16344f;
+    --red:#de5b3c;
+    --ink:#23211c;
+    --ink-soft:#5b574c;
+    --line:rgba(35,33,28,0.14);
+    --accent:var(--red);
+    --font-display:'Newsreader', Georgia, serif;
+    --font-sans:'Schibsted Grotesk', system-ui, sans-serif;
+    --font-mono:'Geist Mono', ui-monospace, monospace;
+    --maxw:1180px;
+    --pad:48px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:var(--font-sans);
+    font-size:18px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  ::selection{background:var(--blue);color:var(--bg);}
+  a{color:inherit;}
+  h1,h2,h3{font-family:var(--font-display);font-weight:500;margin:0;letter-spacing:-0.01em;line-height:1.02;}
+  p{margin:0;text-wrap:pretty;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--pad);}
+
+  /* logo */
+  .logo{display:block;color:var(--blue);--logo-ink:var(--blue);--logo-accent:var(--red);}
+  .logo svg{display:block;height:100%;width:auto;}
+
+  /* eyebrow */
+  .eyebrow{
+    font-family:var(--font-mono);font-size:12.5px;font-weight:500;
+    letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-soft);
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow .num{color:var(--accent);}
+  .eyebrow::before{content:"";width:26px;height:1px;background:currentColor;opacity:.45;}
+
+  /* buttons */
+  .btn{
+    font-family:var(--font-sans);font-weight:600;font-size:16px;
+    border:none;cursor:pointer;border-radius:999px;
+    padding:14px 26px;transition:transform .15s ease, background .2s ease, color .2s ease;
+    text-decoration:none;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;
+  }
+  .btn-primary{background:var(--blue);color:var(--bg);}
+  .btn-primary:hover{background:var(--blue-deep);transform:translateY(-1px);}
+  .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line);padding:12px 22px;}
+  .btn-ghost:hover{border-color:var(--ink);transform:translateY(-1px);}
+
+  /* nav */
+  header.nav{
+    position:sticky;top:0;z-index:50;background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;align-items:center;justify-content:space-between;height:74px;}
+  .nav .logo{height:36px;}
+  .nav-links{display:flex;align-items:center;gap:30px;font-family:var(--font-mono);font-size:13px;letter-spacing:0.04em;}
+  .nav-links a{text-decoration:none;color:var(--ink-soft);transition:color .2s;}
+  .nav-links a:hover{color:var(--ink);}
+  .nav-cta{display:flex;align-items:center;gap:18px;}
+
+  /* section base */
+  section{padding:108px 0;}
+  .lead{font-size:21px;color:var(--ink-soft);max-width:60ch;}
+
+  /* email form */
+  .signup{display:flex;gap:10px;max-width:480px;width:100%;}
+  .signup input{
+    flex:1;min-width:0;font-family:var(--font-sans);font-size:16px;color:var(--ink);
+    background:var(--bg-soft);border:1.5px solid var(--line);border-radius:999px;
+    padding:14px 22px;outline:none;transition:border-color .2s;
+  }
+  .signup input::placeholder{color:var(--ink-soft);}
+  .signup input:focus{border-color:var(--blue);}
+  .form-note{font-family:var(--font-mono);font-size:12px;letter-spacing:0.03em;color:var(--ink-soft);margin-top:14px;}
+
+  /* ===== HERO ===== */
+  .hero{padding-top:84px;padding-bottom:96px;position:relative;overflow:hidden;}
+  .hero h1{font-size:clamp(44px,6.6vw,92px);font-weight:500;}
+  /* red block underline — echoes the logo */
+  .hero .accent,
+  .opp .statement .hl,
+  .approach h2 em,
+  .labor .top h2 em,
+  .problem h2 em,
+  .cta h2 em{
+    color:var(--ink);font-style:normal;font-weight:inherit;
+    background-image:linear-gradient(var(--accent),var(--accent));
+    background-repeat:no-repeat;
+    background-position:left bottom 0.04em;
+    background-size:100% 0.13em;
+    padding-bottom:0.09em;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  }
+  .hero .sub{font-size:21px;color:var(--ink-soft);max-width:54ch;margin-top:28px;}
+  .hero .signup{margin-top:40px;}
+
+  /* default: statement hero */
+  body[data-hero="statement"] .hero h1{max-width:16ch;}
+  body[data-hero="statement"] .hero .he-side{display:none;}
+  body[data-hero="statement"] .hero-grid{display:block;}
+
+  /* split hero */
+  body[data-hero="split"] .hero-grid{
+    display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:center;
+  }
+  body[data-hero="split"] .hero h1{font-size:clamp(40px,5vw,74px);}
+  body[data-hero="split"] .he-side{display:block;}
+  .he-side{
+    border-left:2px solid var(--accent);padding:6px 0 6px 28px;
+  }
+  .he-side .mark{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px;}
+  .he-side .quote{font-family:var(--font-display);font-size:25px;line-height:1.3;color:var(--ink);}
+  .he-side .quote em{color:var(--accent);font-style:italic;}
+
+  /* block hero (deep blue) */
+  body[data-hero="block"] .hero{background:var(--blue);color:var(--bg);margin-bottom:0;}
+  body[data-hero="block"] .hero h1{color:var(--bg);}
+  body[data-hero="block"] .hero .accent{color:var(--bg);background-image:linear-gradient(var(--red),var(--red));}
+  body[data-hero="block"] .hero .sub{color:rgba(226,225,207,.78);}
+  body[data-hero="block"] .eyebrow{color:rgba(226,225,207,.7);}
+  body[data-hero="block"] .eyebrow .num{color:#f0c9bd;}
+  body[data-hero="block"] .hero .he-side{display:none;}
+  body[data-hero="block"] .hero-grid{display:block;}
+  body[data-hero="block"] .hero h1{max-width:15ch;}
+  body[data-hero="block"] .signup input{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:var(--bg);}
+  body[data-hero="block"] .signup input::placeholder{color:rgba(226,225,207,.6);}
+  body[data-hero="block"] .signup input:focus{border-color:var(--bg);}
+  body[data-hero="block"] .btn-primary{background:var(--red);color:#fff;}
+  body[data-hero="block"] .btn-primary:hover{background:#c94e30;}
+  body[data-hero="block"] .form-note{color:rgba(226,225,207,.6);}
+  body[data-hero="block"] .hero .logo-watermark{display:block;}
+  .hero .logo-watermark{display:none;position:absolute;right:-60px;bottom:-120px;width:520px;--logo-ink:rgba(255,255,255,.07);--logo-accent:rgba(255,255,255,.07);pointer-events:none;}
+
+  .eyebrow-row{margin-bottom:30px;}
+
+  /* ===== OPPORTUNITY ===== */
+  .opp .statement{
+    font-family:var(--font-display);font-weight:400;
+    font-size:clamp(28px,3.6vw,48px);line-height:1.16;max-width:20ch;margin-top:34px;
+  }
+  .opp-body{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:54px;align-items:start;}
+  .opp-body .col-r{padding-top:6px;}
+  .opp-body p{font-size:19px;color:var(--ink-soft);}
+  .opp-body p strong{color:var(--ink);font-weight:600;}
+
+  /* ===== PROBLEM (cards) ===== */
+  .problem{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .prob-head{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap;margin-bottom:54px;}
+  .prob-head h2{font-size:clamp(30px,3.6vw,46px);max-width:18ch;}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+  .card{background:var(--bg);padding:40px;display:flex;flex-direction:column;gap:14px;min-height:230px;}
+  .card .idx{font-family:var(--font-display);font-size:34px;color:var(--accent);line-height:1;}
+  .card h3{font-size:24px;font-weight:600;font-family:var(--font-display);}
+  .card p{color:var(--ink-soft);font-size:17px;}
+  .card .stat{margin-top:auto;padding-top:18px;border-top:1px solid var(--line);display:flex;align-items:baseline;gap:12px;}
+  .card .stat .big{font-family:var(--font-display);font-size:38px;color:var(--blue);line-height:1;}
+  .card .stat .src{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+
+  .about h2 em,.about .credo .big em,.reviewer h2 em{color:var(--bg);font-style:normal;background-image:linear-gradient(var(--red),var(--red));background-repeat:no-repeat;background-position:left bottom 0.04em;background-size:100% 0.12em;padding-bottom:0.09em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+  /* ===== APPROACH ===== */
+  .approach h2{font-size:clamp(32px,4.4vw,58px);max-width:16ch;margin-top:26px;}
+  .approach .lead{margin-top:28px;}
+  .three{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:64px;}
+  .three .item{padding-top:26px;border-top:2px solid var(--accent);}
+  .three .item .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+  .three .item h3{font-size:27px;font-weight:600;font-family:var(--font-display);margin:16px 0 12px;}
+  .three .item p{color:var(--ink-soft);font-size:17px;}
+
+  /* ===== DIVISION OF LABOR ===== */
+  .labor{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .labor .top{max-width:24ch;}
+  .labor .top h2{font-size:clamp(30px,4vw,50px);margin-top:24px;}
+  .split2{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:56px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg);}
+  .split2 .half{padding:46px;}
+  .split2 .half + .half{border-left:2px solid var(--accent);}
+  .split2 .label{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px;}
+  .split2 .half h3{font-size:30px;font-family:var(--font-display);font-weight:500;}
+  .split2 .half h3 .blue{color:var(--blue);}
+  .split2 .half h3 .red{color:var(--accent);}
+  .split2 .half p{color:var(--ink-soft);font-size:17px;margin-top:14px;}
+  .labor .closing{font-family:var(--font-display);font-size:clamp(22px,2.6vw,30px);line-height:1.3;max-width:30ch;margin:50px auto 0;text-align:center;color:var(--ink);}
+
+  /* ===== WONT STALL ===== */
+  .stall h2{font-size:clamp(32px,4.4vw,56px);max-width:14ch;margin-top:26px;}
+  .stall-list{margin-top:56px;display:flex;flex-direction:column;}
+  .stall-list .row{display:grid;grid-template-columns:64px 1fr;gap:28px;padding:30px 0;border-top:1px solid var(--line);align-items:start;}
+  .stall-list .row:last-child{border-bottom:1px solid var(--line);}
+  .stall-list .row .n{font-family:var(--font-display);font-size:40px;color:var(--accent);line-height:.9;}
+  .stall-list .row .txt{font-size:21px;color:var(--ink);max-width:62ch;}
+  .stall-list .row .txt strong{font-weight:600;}
+  .stall-list .row .txt .muted{color:var(--ink-soft);}
+
+  /* ===== ABOUT ===== */
+  .about{background:var(--blue-deep);color:var(--bg);}
+  .about .eyebrow{color:rgba(226,225,207,.7);}
+  .about .eyebrow .num{color:#f0c9bd;}
+  .about .eyebrow::before{background:var(--bg);}
+  .about h2{font-size:clamp(30px,4vw,52px);font-weight:500;margin-top:26px;max-width:20ch;color:var(--bg);}
+  .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:60px;}
+  .role{border-top:1px solid rgba(255,255,255,.25);padding-top:22px;}
+  .role .r{font-family:var(--font-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#f0c9bd;}
+  .role p{margin-top:14px;color:rgba(226,225,207,.85);font-size:17px;}
+  .about .credo{
+    margin-top:64px;padding-top:46px;border-top:1px solid rgba(255,255,255,.2);
+    display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;
+  }
+  .about .credo .big{font-family:var(--font-display);font-size:clamp(24px,2.8vw,34px);line-height:1.28;color:var(--bg);}
+  .about .credo p{color:rgba(226,225,207,.82);font-size:18px;}
+
+  /* ===== FINAL CTA ===== */
+  .cta{text-align:center;padding:128px 0;}
+  .cta .eyebrow{justify-content:center;}
+  .cta .eyebrow::before{display:none;}
+  .cta h2{font-size:clamp(38px,5.4vw,76px);font-weight:500;margin:24px auto 0;max-width:16ch;}
+  .cta .lead{margin:26px auto 0;text-align:center;}
+  .cta .signup{margin:42px auto 0;}
+  .cta .form-note{text-align:center;}
+
+  /* ===== FOOTER ===== */
+  footer{border-top:1px solid var(--line);padding:54px 0;}
+  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap;}
+  footer .logo{height:42px;}
+  .foot-meta{font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--ink-soft);text-align:right;line-height:1.7;}
+
+  /* ===== INTRO / BENEFITS ===== */
+  .intro{background:var(--bg-soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:96px 0;}
+  .intro-lead{font-family:var(--font-display);font-size:clamp(26px,3.2vw,40px);line-height:1.2;max-width:28ch;margin-top:26px;}
+  .benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:56px;}
+  .benefit{background:var(--bg);padding:32px 30px 36px;display:flex;flex-direction:column;gap:20px;}
+  .benefit::before{content:"";width:30px;height:13px;background:var(--accent);}
+  .benefit p{font-size:18px;line-height:1.45;color:var(--ink);}
+  .intro .benefits{margin-top:34px;}
+  /* ===== OPPORTUNITY extras ===== */
+  .opp .why{font-family:var(--font-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--blue);margin-top:34px;}
+  .opp .why + .statement{margin-top:14px;}
+  .opp .why-h{font-size:clamp(44px,6vw,84px);font-weight:500;margin-top:26px;}
+  .opp .why-body{display:flex;flex-direction:column;gap:22px;margin-top:40px;max-width:44ch;}
+  .opp .why-body p{font-family:var(--font-display);font-size:clamp(22px,2.4vw,30px);line-height:1.3;color:var(--ink);}
+  .opp .why-body p .hl{color:var(--ink);background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-position:left bottom 0.04em;background-size:100% 0.12em;padding-bottom:0.06em;}
+  .opp .next{display:flex;justify-content:space-between;align-items:center;gap:32px;margin-top:64px;padding-top:36px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink);}
+  .opp .next span{font-family:var(--font-display);font-size:clamp(22px,2.6vw,32px);line-height:1.25;max-width:32ch;}
+  .opp .next i{flex:none;width:56px;height:56px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-style:normal;font-size:22px;transition:transform .2s;}
+  .opp .next:hover i{transform:translateX(4px);}
+  /* ===== UPSIDE cards ===== */
+  .problem .prob-lead{font-size:19px;color:var(--ink-soft);max-width:44ch;margin-top:20px;}
+  .card .card-top{display:flex;align-items:center;justify-content:space-between;}
+  .card .tag{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);}
+  .card h3{font-size:27px;line-height:1.15;}
+  .card .was{margin-top:auto;padding-top:20px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px;}
+  .card .was-k{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+  .card .was-t{font-weight:600;font-size:16px;color:var(--ink);}
+  .card .was p{font-size:16px;}
+  .card .stat{border-top:none;padding-top:8px;margin-top:0;}
+  .card .stat .big{font-size:30px;}
+  /* ===== APPROACH product ===== */
+  .product-name{display:flex;align-items:center;gap:14px;font-family:var(--font-display);font-size:30px;font-weight:500;margin-top:60px;}
+  .product-name::before{content:"";width:34px;height:15px;background:var(--accent);}
+  .approach .three{margin-top:40px;}
+  /* ===== CONTRACT REVIEWER (blue) ===== */
+  .reviewer{background:var(--blue);color:var(--bg);}
+  .reviewer .product-name{margin-top:0;color:var(--bg);}
+  .reviewer .product-name::before{background:var(--red);}
+  .steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:34px;margin-top:48px;}
+  .step{border-top:1px solid rgba(255,255,255,.28);padding-top:24px;display:flex;flex-direction:column;gap:16px;}
+  .step .n{font-family:var(--font-display);font-size:56px;line-height:.9;color:var(--bg);}
+  .step .k{font-family:var(--font-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#f0c9bd;}
+  .step p{font-size:19px;line-height:1.45;color:rgba(226,225,207,.9);}
+  /* stall bullets */
+  .stall-list .row .n{width:30px;height:13px;background:var(--accent);margin-top:12px;font-size:0;}
+  .stall-list .row{grid-template-columns:40px 1fr;}
+
+  .demo{position:relative;margin:36px auto 0;width:100%;max-width:640px;aspect-ratio:16/9;border-radius:16px;background:var(--blue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden;}
+  .demo-play{width:64px;height:64px;border-radius:50%;background:var(--red);position:relative;}
+  .demo-play::after{content:"";position:absolute;left:26px;top:20px;border-left:18px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;}
+  .demo-label{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--bg);}
+  .hero .demo + .sub{margin-top:40px;}
+  body[data-hero="block"] .demo{background:var(--blue-deep);}
+  .opp{text-align:center;}
+  .opp .why-h{margin:0 auto;}
+  .opp .why-body{margin-left:auto;margin-right:auto;max-width:54ch;gap:16px;}
+  .upside{text-align:center;background:var(--bg);border-top:none;border-bottom:none;}
+  .upside h2{margin:0 auto;}
+  .up-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:48px auto 0;max-width:920px;}
+  .up{background:var(--bg);padding:36px 40px;display:flex;flex-direction:row;align-items:center;gap:22px;text-align:left;}
+  .up::before{content:"";flex:none;width:30px;height:13px;background:var(--accent);}
+  .upside .up p{font-size:22px;line-height:1.4;font-weight:500;color:var(--ink);}
+  @media (max-width:700px){.up-grid{grid-template-columns:1fr;}.up{padding:28px 26px;}}
+  .approach-head{text-align:center;display:flex;flex-direction:column;align-items:center;}
+  .approach-head h2{margin:0 auto;}
+  .approach-head .product-name{margin-top:40px;}
+  .approach-sub{font-family:var(--font-display);font-weight:500;font-size:clamp(24px,2.6vw,32px);line-height:1.2;margin-top:18px;max-width:30ch;}
+  .approach-sub em{color:var(--ink);font-style:normal;background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-position:left bottom 0.04em;background-size:100% 0.12em;padding-bottom:0.06em;}
+  .approach-head .lead{margin:20px auto 0;max-width:54ch;}
+  .stall-h{text-align:center;margin:0 auto !important;}
+  .about .credo{grid-template-columns:1fr !important;gap:20px !important;max-width:54ch;margin-left:auto;margin-right:auto;text-align:center;}
+  .hero .hero-tag{margin:20px auto 0;color:var(--ink);font-size:22px;}
+  section.facts{padding:0 0 24px;}
+  .facts-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+  .fact{background:var(--bg);padding:28px 30px;display:flex;align-items:center;gap:18px;}
+  .fact::before{content:"";flex:none;width:26px;height:11px;background:var(--accent);}
+  .fact p{font-size:18px;line-height:1.4;font-weight:500;color:var(--ink);}
+  @media (max-width:900px){.facts-row{grid-template-columns:1fr;}}
+  .data-head{text-align:center;display:flex;flex-direction:column;align-items:center;}
+  .data-head h2{margin:0 auto !important;}
+  .data-head .lead{margin:24px auto 0;max-width:54ch;color:var(--ink);}
+  .qa-list{max-width:760px;margin:40px auto 0;border-bottom:1px solid var(--line);}
+  .qa{border-top:1px solid var(--line);}
+  .qa summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;padding:20px 4px;font-size:19px;font-weight:600;color:var(--ink);}
+  .qa summary::-webkit-details-marker{display:none;}
+  .qa summary::before{content:"";flex:none;width:18px;height:8px;background:var(--accent);}
+  .qa summary::after{content:"+";margin-left:auto;font-family:var(--font-mono);font-weight:400;font-size:22px;color:var(--blue);transition:transform .2s;}
+  .qa[open] summary::after{transform:rotate(45deg);}
+  .qa p{padding:0 4px 22px 38px;font-size:18px;line-height:1.55;color:var(--ink-soft);}
+  .tbd{background:rgba(222,91,60,.14);color:#9a3219;padding:1px 6px;border-radius:4px;font-family:var(--font-mono);font-size:.82em;}
+  .up{align-items:flex-start !important;}
+  .up::before{margin-top:10px;}
+  .up-txt{display:flex;flex-direction:column;gap:10px;}
+  .up-txt h3{font-family:var(--font-display);font-size:24px;font-weight:600;line-height:1.2;color:var(--ink);}
+  .upside .up .up-txt p{font-size:17px;line-height:1.55;font-weight:400;color:var(--ink-soft);}
+  .up-lead{margin:24px auto 0;max-width:54ch;color:var(--ink);}
+  .role-name{font-family:var(--font-display);font-size:26px;font-weight:500;color:var(--bg);margin-bottom:8px;}
+  .start-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:48px auto 0;max-width:920px;}
+  .start-card{background:var(--bg);padding:36px 40px;display:flex;gap:28px;align-items:flex-start;}
+  .start-big{font-family:var(--font-display);font-size:88px;line-height:.8;color:var(--blue);font-weight:500;position:relative;padding-bottom:14px;}
+  .start-big::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:10px;background:var(--accent);}
+  .start-txt{display:flex;flex-direction:column;gap:10px;}
+  .start-txt h3{font-family:var(--font-display);font-size:24px;font-weight:600;line-height:1.2;}
+  .start-txt p{font-size:17px;line-height:1.55;color:var(--ink-soft);}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+  .chips span{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;padding:7px 14px;border:1.5px solid var(--blue);color:var(--blue);border-radius:999px;}
+  @media (max-width:800px){.start-grid{grid-template-columns:1fr;}.start-card{padding:28px 26px;}}
+  .nav-btn{padding:7px 14px;font-size:13px;font-weight:500;}
+  .about-head{text-align:center;display:flex;flex-direction:column;align-items:center;}
+  .about-head h2{margin:0 auto !important;}
+  .about-head .lead{margin:24px auto 0;max-width:54ch;color:var(--bg);}
+  .about-head .lead em{color:var(--bg);font-style:normal;background-image:linear-gradient(var(--red),var(--red));background-repeat:no-repeat;background-position:left bottom 0.02em;background-size:100% 0.14em;padding-bottom:0.08em;}
+  .labor-head{text-align:center;display:flex;flex-direction:column;align-items:center;}
+  section.labor{background:var(--bg);border-top:none;border-bottom:none;}
+  .labor-head .eyebrow::before{display:none;}
+  .labor-head h2{margin:0 auto;max-width:22ch;}
+  .labor-head .lead{margin:24px auto 0;max-width:54ch;color:var(--ink);}
+  .ul{color:var(--ink);background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-position:left bottom 0.02em;background-size:100% 0.14em;padding-bottom:0.08em;-webkit-box-decoration-break:clone;box-decoration-break:clone;}
+  body[data-hero="block"] .ul{color:var(--bg);}
+  .hero .hero-main{text-align:center;}
+  .hero .hero-main .eyebrow{justify-content:center;}
+  .hero .hero-main .eyebrow::before{display:none;}
+  .hero .hero-main .sub{margin-left:auto;margin-right:auto;}
+  body .hero .hero-main h1{max-width:none;white-space:nowrap;font-size:clamp(34px,5.6vw,78px);text-align:center;margin-left:auto;margin-right:auto;}
+  @media (max-width:640px){.hero .hero-main h1{white-space:normal;}}
+  .pull{padding:44px 0;text-align:center;}
+  .pull blockquote{margin:0 auto;max-width:40ch;font-family:var(--font-display);font-style:italic;font-weight:400;font-size:clamp(20px,2vw,24px);line-height:1.35;color:var(--blue);display:flex;flex-direction:column;align-items:center;gap:14px;text-wrap:balance;}
+  .pull blockquote.wide{max-width:64ch;}
+  .pull blockquote::before{content:"";width:24px;height:10px;background:var(--accent);}
+  /* ===== unified type ===== */
+  section h2,.opp .why-h,.prob-head h2,.labor .top h2,.about h2,.cta h2,.approach h2,.stall h2{font-family:var(--font-display);font-weight:500;font-size:clamp(34px,4.4vw,56px);line-height:1.05;max-width:18ch;}
+  .labor .top{max-width:none;}
+  .cta h2{margin-left:auto;margin-right:auto;}
+  .hero .sub,.lead,.prob-lead,.opp .why-body p,.opp-body p,.benefit p,.card p,.card .was p,.three .item p,.step p,.split2 .half p,.labor .closing,.stall-list .row .txt,.role p,.about .credo p,.about .credo .big,.cta .lead{font-family:var(--font-sans);font-size:19px;line-height:1.55;}
+  .opp .why-body p{color:var(--ink);}
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:none;}
+  @media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none;}}
+
+  /* responsive */
+  @media (max-width:1100px) and (min-width:901px){.benefits{grid-template-columns:repeat(2,minmax(0,1fr));}}
+  @media (max-width:900px){
+    :root{--pad:24px;}
+    body{font-size:17px;}
+    section{padding:72px 0;}
+    .nav-links{display:none;}
+    .opp-body,.about .credo{grid-template-columns:1fr;gap:28px;}
+    .cards,.three,.roles,.benefits,.steps{grid-template-columns:1fr;}
+    .opp .next i{width:44px;height:44px;}
+    .split2{grid-template-columns:1fr;}
+    .split2 .half + .half{border-left:none;border-top:2px solid var(--accent);}
+    body[data-hero="split"] .hero-grid{grid-template-columns:1fr;gap:40px;}
+    .signup{flex-direction:column;border-radius:0;}
+    .signup .btn{justify-content:center;}
+    .three .item{border-top-width:2px;}
+  }
+</style>
+</head>
+<body data-hero="statement">
+
+<!-- ===== LOGO SPRITE ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="joan-logo" viewBox="0 0 214.73 104.78">
+    <path fill="var(--logo-ink, currentColor)" d="M89.84,87.05v-1.83h2.49v-1.87c0-2.37,1.18-3.56,3.55-3.56h1.7v1.98h-1.51c-.48,0-.85.15-1.1.44-.25.29-.38.71-.38,1.26v1.75h2.82v1.83h-2.82v12.03h-2.26v-12.03h-2.49Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M100.3,99.08v-13.86h1.94l.27,1.67c.21-.29.45-.58.72-.84s.67-.52,1.17-.76,1.03-.35,1.59-.35c.35,0,.74.04,1.19.11v2.06h-1.19c-1.21,0-2.09.37-2.64,1.12-.56.74-.84,1.89-.84,3.43v7.42h-2.21Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M110.39,97.38c-1.11-1.31-1.66-3.06-1.66-5.22s.55-3.91,1.66-5.23c1.11-1.32,2.64-1.98,4.59-1.98s3.44.66,4.55,1.99c1.12,1.33,1.67,3.07,1.67,5.22s-.56,3.9-1.67,5.22c-1.11,1.32-2.63,1.98-4.56,1.98s-3.48-.66-4.59-1.97ZM110.99,92.15c0,1.62.36,2.91,1.07,3.85.71.94,1.69,1.41,2.92,1.41s2.2-.47,2.9-1.41c.71-.94,1.06-2.22,1.06-3.85s-.35-2.88-1.06-3.82c-.71-.94-1.68-1.41-2.9-1.41s-2.21.47-2.92,1.41c-.71.94-1.07,2.21-1.07,3.83Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M124.63,99.08v-13.86h1.94l.27,1.67c.21-.47.68-.92,1.39-1.33.71-.42,1.48-.62,2.31-.62,1.85,0,3.2.74,4.05,2.22.4-.7.98-1.24,1.73-1.63s1.57-.59,2.47-.59c1.74,0,2.97.53,3.71,1.6s1.11,2.67,1.11,4.81v7.73h-2.21v-7.73c0-2.97-1.02-4.45-3.07-4.45-.51,0-.95.08-1.33.24-.38.16-.67.37-.9.64s-.4.59-.54.99c-.14.4-.23.8-.27,1.2-.04.41-.07.87-.07,1.38v7.73h-2.21v-7.73c0-.65-.04-1.22-.12-1.7-.08-.48-.23-.94-.44-1.38-.21-.44-.53-.77-.96-1-.42-.23-.95-.35-1.57-.35-2.05,0-3.08,1.48-3.08,4.43v7.73h-2.21Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M153.69,99.08v-19.29h2.21v19.29h-2.21Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M159.16,92.15c0-2.15.56-3.89,1.69-5.22,1.12-1.33,2.62-1.99,4.5-1.99s3.39.61,4.47,1.84c1.08,1.23,1.62,2.94,1.62,5.14,0,.2-.02.52-.05.96h-9.85c.02,1.19.39,2.24,1.11,3.15.72.91,1.64,1.37,2.77,1.37.95,0,1.78-.25,2.5-.76.72-.51,1.23-1.26,1.53-2.25l2.07.52c-.12.52-.32,1.02-.62,1.52-.3.49-.69.97-1.17,1.42-.48.45-1.09.81-1.84,1.08-.75.27-1.58.41-2.48.41-1.83,0-3.33-.67-4.5-2.01s-1.75-3.07-1.75-5.19ZM161.59,91.08h7.41c-.03-1.34-.34-2.37-.94-3.1-.6-.73-1.51-1.09-2.72-1.09-.79,0-1.47.21-2.04.62s-1,.92-1.27,1.54-.42,1.3-.44,2.03Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M174.15,92.15c0-2.13.55-3.87,1.66-5.2,1.11-1.34,2.55-2.01,4.34-2.01.99,0,1.87.24,2.64.73.77.49,1.3,1.03,1.61,1.63l.27-2.07h1.99v13.36c0,2.01-.55,3.54-1.66,4.6-1.11,1.06-2.6,1.59-4.47,1.59-1.55,0-2.84-.33-3.87-.99s-1.65-1.54-1.85-2.65l2.19-.52c.14.6.54,1.12,1.19,1.56.65.44,1.43.66,2.34.66,1.33,0,2.31-.39,2.93-1.18.62-.79.94-1.81.94-3.08v-1.42c-.29.58-.84,1.09-1.63,1.53-.79.44-1.66.66-2.62.66-1.74,0-3.17-.67-4.3-2.01s-1.7-3.07-1.7-5.19ZM176.41,92.15c0,1.61.37,2.89,1.11,3.84.74.95,1.73,1.42,2.98,1.42s2.2-.47,2.88-1.4c.68-.93,1.02-2.22,1.02-3.86s-.34-2.9-1.02-3.83c-.68-.93-1.64-1.4-2.88-1.4s-2.25.47-2.98,1.41c-.74.94-1.11,2.21-1.11,3.82Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M189.79,95.08c0-1.15.49-2.1,1.46-2.86.97-.76,2.32-1.14,4.03-1.14h4.03v-1.18c0-.29-.02-.56-.06-.81s-.13-.51-.27-.79-.33-.52-.57-.71-.58-.35-1.02-.48-.95-.19-1.54-.19c-1.07,0-1.88.26-2.43.77s-.84,1.26-.85,2.24c-.16-.03-.39-.07-.68-.13-.29-.06-.57-.12-.82-.16-.25-.04-.48-.08-.7-.12.04-.99.32-1.83.84-2.54.51-.7,1.17-1.21,1.96-1.54s1.69-.5,2.68-.5c1.97,0,3.41.48,4.32,1.45.91.97,1.36,2.45,1.36,4.45v4.82c0,.56.06.98.18,1.24s.35.4.69.4c.25,0,.5-.04.74-.13v1.91c-.5.11-.97.16-1.42.16-.7,0-1.25-.2-1.63-.6-.39-.4-.61-.93-.66-1.59-.16.22-.34.43-.55.64-.2.2-.49.44-.85.71-.36.27-.82.49-1.36.67-.54.17-1.13.27-1.75.29-1.6,0-2.86-.39-3.76-1.16-.9-.78-1.36-1.81-1.36-3.1ZM192.12,95.08c0,.64.24,1.19.73,1.65s1.23.68,2.22.68c.69,0,1.3-.12,1.86-.35.55-.23,1-.53,1.34-.9.34-.37.6-.78.78-1.22s.27-.89.27-1.34v-.71h-3.83c-.54,0-1.02.05-1.44.15-.42.1-.75.23-.98.39-.24.16-.43.34-.57.54s-.25.4-.29.58c-.05.18-.07.36-.07.54Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M205.97,99.08v-19.29h2.21v19.29h-2.21Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M211.92,99.08v-2.8h2.81v2.8h-2.81Z"></path>
+    <rect fill="var(--logo-accent, #de5b3c)" x="26.47" y="77.06" width="49.88" height="22.51"></rect>
+    <path fill="var(--logo-ink, currentColor)" d="M140.81,28.07l.06,24.81c.01,4.39.68,8.47,1.93,12.56l2.64,4.22-16.11.03.41-13.72.15-16.32c.05-4.93-1.39-9.48-4.74-13.11l15.54-7.57.26,6.73c3.81-4.54,8.85-7.15,14.62-6.65,8.73.75,11.37,7.88,13.12,16.27l4.86,23.22c1.46,4.31,2.87,8.03,6.4,11.11l-16.19.03-6.65-34.7c-.71-2.69-1.38-5.28-2.55-7.64-1.6-3.22-5.07-4.5-8.35-3.16-1.99.82-3.55,2.11-5.41,3.88Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M66.45,65.33c-7.15,5.5-15.93,6.72-24.55,3.53-6.9-2.55-13.08-8.65-15.46-16.6s-1.3-15.63,3.55-22.59c3.98-5.7,10.89-9.98,18.74-10.56,11.16-.83,21.59,5.92,25.61,15.85,4.38,10.82,1.54,23.12-7.89,30.38ZM64.04,63.35c6.84-12.27-3.31-36.65-15.29-41.19-3.88-1.47-7.98-.36-10.39,3.06-6.82,9.69-.93,26.25,6.35,35.74,2.14,2.78,4.72,4.96,7.84,6.32,4.32,1.89,9.07.39,11.48-3.93Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M19.13,54.22c-.04,10.77-7.48,22.9-19.13,25.19,2.09-2.69,4.11-4.83,5.15-7.93,1.44-4.25,2.53-8.64,2.53-13.33l.06-40.59c0-2.32-.44-4.69-.72-6.91-.5-3.84-1.84-7.11-3.79-10.65l20.66.03c-3.83,6.2-4.62,14.1-4.65,21.06l-.12,33.13Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M126.91,69.65c-8.67-10.58-10.94-24.55-10.78-37.74,1.93-1.1,3.57-2.54,4.06-4.03.71-2.14.6-4.45-.93-6.03-1.76-1.82-4.53-2.38-7.08-2.69-10.64-1.27-21.49,4.37-30.61,9.78-.09,5.95-.26,11.3.16,17.19,4.44-8.79,9.23-20.44,17.75-23.95,2.46-1.01,6.2-1.32,8.09.79,2.14,2.4,1.04,6.34-.63,8.84-4.96,7.37-14.8,9.81-23.22,17.37-3.42,3.07-5.62,7.05-5.22,11.82.4,4.79,3.48,7.81,7.81,8.93,8.35,2.15,16.79-1.18,21.98-8.13,3.38-4.53,4.69-9.75,6.02-15.18l-.37,23.06,12.97-.03ZM104.29,58.29c-3.13,1.93-6.54,3.18-10.49,2.43-3.5-.67-5.16-4.04-4.54-7.46.9-4.94,4.29-9.3,8.86-11.75l16.61-8.89c-.75,9.62-2.55,19.75-10.44,25.66Z"></path>
+    <path fill="var(--logo-ink, currentColor)" d="M162.22,22.53l2.43-7.6,8.26.13c-3.6,2.76-6.84,4.95-9.99,8.07"></path>
+  </symbol>
+</svg>
+
+<!-- ===== NAV ===== -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" aria-label="Joan from Legal"><svg viewBox="0 0 214.73 104.78"><use href="#joan-logo"></use></svg></a>
+    <nav class="nav-cta">
+      <div class="nav-links">
+        <a href="#upside">The upside</a>
+        <a href="#approach">The approach</a>
+        <a href="#data">Your data</a>
+        <a href="#about">About</a>
+      </div>
+      <a href="#signup" class="btn btn-primary nav-btn">Keep me posted</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+<section class="hero">
+<div class="wrap">
+<div class="hero-grid">
+<div class="hero-main">
+<div class="eyebrow eyebrow-row">Joan from Legal</div>
+<h1>Legal automation made <span class="accent">easy</span></h1>
+<p class="sub hero-tag">Joan turns your past contracts into a playbook, then reviews new ones against it.</p>
+<div class="demo" aria-label="Demo"><div class="demo-play" aria-hidden="true"></div><div class="demo-label">Demo</div></div>
+<p class="sub">Joan from Legal reads the contracts, redlines, and versions your team has already produced up until today — and turns them into your playbook, provides structure in your day to day decision making processes which your department never had time to build.</p>
+<p class="sub" style="margin-top:16px;">The <span class="ul">Playbook Engine</span> is the starting point for your automated <span class="ul">Contract Reviewer</span> to work in a fast and consistent manner.</p>
+</div>
+</div>
+</div>
+<svg class="logo-watermark" viewBox="0 0 214.73 104.78" aria-hidden="true"><use href="#joan-logo"></use></svg>
+</section>
+<section class="facts"><div class="wrap"><div class="facts-row">
+<div class="fact"><p>Pay per review, not seats or subscriptions.</p></div>
+<div class="fact"><p>No lengthy sales process, easy to implement</p></div>
+<div class="fact"><p>Additional legal support available on request, at extra cost</p></div>
+</div></div></section>
+<section class="problem upside" id="upside">
+<div class="wrap reveal">
+<h2>The upside</h2>
+<p class="lead up-lead">Add a layer of intelligence and you can now review your contracts in minutes, <span class="ul">negotiate with confidence and precision</span>.</p>
+<div class="up-grid">
+<div class="up"><div class="up-txt"><h3>Your standards, not a generic market standard</h3><p>Reviews are based on the positions your team has already negotiated and signed off. They aren't based on what an AI thinks is "normal".</p></div></div>
+<div class="up"><div class="up-txt"><h3>The same answer, whoever reviews</h3><p>A junior colleague and a senior counsel get the same flags on the same clause. There's less rework, and fewer surprises after signing.</p></div></div>
+<div class="up"><div class="up-txt"><h3>Minutes per contract, not hours</h3><p>The first review pass is done before you open the file, so your time goes to the few clauses that actually need judgment.</p></div></div>
+<div class="up"><div class="up-txt"><h3>Risks you can explain and defend</h3><p>Every flag links back to your playbook and the reasoning behind it, so you can show why you accepted or pushed back.</p></div></div>
+</div>
+</div>
+</section>
+<aside class="pull reveal"><div class="wrap"><blockquote class="wide">Built for teams that need contract review, not an enterprise suite.</blockquote></div></aside>
+<section class="approach" id="approach">
+<div class="wrap reveal">
+<div class="approach-head">
+<h2>The approach</h2>
+<div class="product-name">The playbook engine</div>
+<p class="lead">We <span class="ul">extract and analyze</span> the work you've already done. Instead of asking the team to author structure from nothing, we retrieve the decisions from the contracts they've already negotiated. One pass produces three things at once.</p>
+</div>
+<div class="three">
+<div class="item"><div class="k">Output 01</div><h3>A draft playbook</h3><p>Of the positions the team actually takes — surfaced from the redlines, not invented.</p></div>
+<div class="item"><div class="k">Output 02</div><h3>Contract management structure</h3><p>Every document is tagged by counterparty, deal type, clause and version, so everything is easy to find.</p></div>
+<div class="item"><div class="k">Output 03</div><h3>A searchable decision history</h3><p>Everything that was decided, ready the moment a similar question comes up again.</p></div>
+</div>
+<div class="approach-head" style="margin-top:96px;">
+<div class="product-name" style="margin-top:0;">The contract reviewer</div>
+<p class="lead">With the playbook as your own knowledge base and framework, contracts can be reviewed quickly and consistently</p>
+</div>
+<div class="three">
+<div class="item"><div class="k">Output 01</div><h3>Reviewed against your playbook</h3><p>Add a contract and Joan reviews it against your extracted and signed-off playbook.</p></div>
+<div class="item"><div class="k">Output 02</div><h3>Risks flagged, redlines suggested</h3><p>Joan flags risks based on your pre-approved positions and suggests redlines and comments.</p></div>
+<div class="item"><div class="k">Output 03</div><h3>Version control during negotiation</h3><p>Every round is tracked, so you always know what changed and what was agreed.</p></div>
+</div>
+</div>
+</section>
+<aside class="pull reveal"><div class="wrap"><blockquote>Small add-on, with big impact</blockquote></div></aside>
+<section class="labor">
+<div class="wrap reveal">
+<div class="top labor-head"><h2>The honest division of labor</h2><p class="lead">The data shows <span class="ul">what</span> the team decided. The team supplies the <span class="ul">judgment</span>. A first draft of your playbook within a day, with your judgment added where it actually matters.</p></div>
+<div class="split2">
+<div class="half"><div class="label">The system</div><h3>Generates the <span class="blue">first draft.</span></h3><p>One pass over the existing contracts produces the playbook, the structure, and the records — automatically.</p></div>
+<div class="half"><div class="label">The team</div><h3>Supplies the <span class="red">judgment.</span></h3><p>Their only new task: review the draft and add the reasoning behind each position where needed — the one thing the data can't capture.</p></div>
+</div>
+</div>
+</section>
+<section class="start" id="start">
+<div class="wrap reveal">
+<div class="data-head"><h2>How to get started</h2></div>
+<div class="start-grid">
+<div class="start-card"><div class="start-big">10</div><div class="start-txt"><h3>Contract negotiations</h3><p>From the Word files with redlining to the final PDF. That's what Joan needs to understand your decision making.</p></div></div>
+<div class="start-card"><div class="start-txt"><h3>Works where you already work</h3><p>Joan connects to the tools your team already uses.</p><div class="chips"><span>SharePoint</span><span>Google Drive</span><span>Word</span><span>Google Docs</span></div></div></div>
+</div>
+</div>
+</section>
+<section class="data" id="data">
+<div class="wrap reveal">
+<div class="data-head"><h2>Your data</h2>
+<p class="lead">In short: your data stays yours, is kept separate, is not used to train the AI, and we arrange everything properly with a data processing agreement.</p></div>
+<div class="qa-list">
+<details class="qa"><summary>What data does Joan use?</summary><p>Contracts, previous negotiation outcomes and the agreements in your playbook. Joan from Legal has no access to any systems other than the ones you open up for it.</p></details>
+<details class="qa"><summary>Where is the data stored?</summary><p>Your data is stored in <span class="tbd">[country/region, e.g. the EU]</span> with <span class="tbd">[hosting provider]</span>. It stays within a secure environment that is yours alone.</p></details>
+<details class="qa"><summary>Who has access?</summary><p>Only the people you designate. Joan from Legal (and the team behind Joan) does not look at the content, unless you explicitly ask us to for support.</p></details>
+<details class="qa"><summary>Is the AI trained on our data?</summary><p>No. Your data is only used to create your playbook and your reviews. It is not used to train the AI and never ends up with other customers. <span class="tbd">[To check: which AI model does Joan use, and what do its terms say about training and retention?]</span></p></details>
+<details class="qa"><summary>How is the data secured?</summary><p><span class="tbd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p></details>
+<details class="qa"><summary>Which AI provider does Joan use?</summary><p><span class="tbd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p></details>
+<details class="qa"><summary>Personal data</summary><p>Contracts sometimes contain names and contact details. For this we sign a data processing agreement, so everything is handled in line with the GDPR.</p></details>
+<details class="qa"><summary>What if we stop?</summary><p>You remain the owner of your data and your playbook. When you stop, you get everything back and your data is deleted within <span class="tbd">[period]</span>.</p></details>
+</div>
+</div>
+</section>
+<section class="about" id="about">
+<div class="wrap reveal">
+<div class="about-head"><h2>Our story</h2>
+<p class="lead">We started in Marketing and Law, met at MediaMonks, and spent <em>40 years</em> there between us.</p></div>
+<div class="roles">
+<div class="role"><div class="role-name">Britt van Engelen</div><div class="r">Global legal counsel</div><p>Negotiated thousands of contracts with global and local brands, agencies, and contractors.</p></div>
+<div class="role"><div class="role-name">Nathalie Visser</div><div class="r">Executive producer · NY &amp; Amsterdam</div><p>Handled hundreds of NDAs and MSAs at a relentless pace, where speed couldn't cost consistency.</p></div>
+<div class="role"><div class="role-name">Sander van der Vegte</div><div class="r">Creative technologist · Head of Labs R&amp;D</div><p>New tech and prototypes are ingrained in his DNA — turning rough ideas into working tools.</p></div>
+</div>
+<div class="credo">
+<p class="big">We know that we are not the only ones with this idea. But we have built Joan from Legal for <em>ourselves</em> first — in a way that works for us, and is easy to use and understand. Unlike generic tools, Joan learns from your own negotiations, not a generic market standard.</p>
+<p>Joan reviews a contract faster and more consistently than doing it by hand. No difficult onboarding, no learning curve. Just ease of use — transparent and reliable.</p>
+</div>
+</div>
+</section>
+<section class="cta" id="signup">
+<div class="wrap reveal">
+<div class="eyebrow"><span class="num">Beta</span> Join early</div>
+<h2>How can Joan <em>from Legal</em> help you?</h2>
+<p class="lead">If you'd like to be informed on our progress and beta testing, sign up with your email address.</p>
+<form class="signup" onsubmit="return false;"><input type="email" placeholder="you@yourfirm.com" aria-label="Email address"><button class="btn btn-primary" type="submit">Keep me posted</button></form>
+<p class="form-note">We'll only reach out about the beta. Unsubscribe anytime.</p>
+</div>
+</section>
+</main>
+<footer>
+<div class="wrap foot-in">
+<a href="#top" class="logo" aria-label="Joan from Legal"><svg viewBox="0 0 214.73 104.78"><use href="#joan-logo"></use></svg></a>
+<div class="foot-meta">Joan from Legal · Beta 2026<br>Built by three people who spent 40 years in law &amp; marketing.</div>
+</div>
+</footer>
+<!-- ===== reveal-on-scroll ===== -->
+<script>
+  (function(){
+    var els = document.querySelectorAll('.reveal');
+    if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in');});return;}
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+    },{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    els.forEach(function(e){io.observe(e);});
+  })();
+</script>
+
+<!-- ===== Tweaks ===== -->
+<div id="tweaks-root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="tweaks-app.jsx"></script>
+
+</body>
+</html>
