@@ -349,6 +349,45 @@
   .chips span{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.04em;padding:7px 14px;border:1.5px solid var(--blue);color:var(--blue);border-radius:999px;}
   @media (max-width:800px){.start-grid{grid-template-columns:1fr;}.start-card{padding:28px 26px;}}
   .nav-btn{padding:7px 14px;font-size:13px;font-weight:500;}
+  .viz{margin:48px auto 0;max-width:860px;padding:0;position:relative;}
+  .viz-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px;text-align:left;}
+  .pb,.rv{background:#f3f2e6;border:1px solid var(--line);border-radius:14px;box-shadow:0 18px 40px -24px rgba(22,52,79,.35);text-align:left;}
+  .viz-narrow{max-width:560px;}
+  .pb{padding:30px 34px;}
+  .pb-top{display:flex;justify-content:space-between;align-items:center;}
+  .pb-k,.rv-k{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);}
+  .pb-chip{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;padding:4px 10px;border-radius:999px;background:var(--blue);color:var(--bg);}
+  .pb-title{font-family:var(--font-display);font-size:28px;font-weight:600;margin:14px 0 18px;padding-bottom:6px;background-image:linear-gradient(var(--accent),var(--accent));background-repeat:no-repeat;background-position:left bottom;background-size:64px 5px;}
+  .pb-rows{margin:0;display:flex;flex-direction:column;}
+  .pb-rows div{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line);}
+  .pb-rows dt{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);padding-top:3px;}
+  .pb-rows dd{margin:0;font-size:16px;line-height:1.45;color:var(--ink);font-weight:500;}
+  .pb-foot{margin-top:14px;padding-top:16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:8px;}
+  .pb-src{font-size:14px;font-weight:600;color:var(--blue);}
+  .pb-bar{display:flex;height:6px;border-radius:3px;overflow:hidden;gap:2px;}
+  .pb-bar i{background:var(--blue);}
+  .pb-bar b{background:var(--accent);}
+  .pb-legend{display:flex;gap:16px;font-size:12.5px;color:var(--ink-soft);}
+  .pb-legend em{font-style:normal;display:flex;align-items:center;gap:6px;}
+  .pb-legend em::before{content:"";width:8px;height:8px;border-radius:2px;}
+  .pb-legend .acc::before{background:var(--blue);}
+  .pb-legend .push::before{background:var(--accent);}
+  .rv{display:grid;grid-template-columns:1.25fr 1fr;overflow:hidden;}
+  .rv-doc{padding:28px 32px;background:#fbfaf3;display:flex;flex-direction:column;gap:14px;}
+  .rv-doc p{font-family:Georgia,var(--font-display),serif;font-size:15.5px;line-height:1.65;color:var(--ink);}
+  .rv-doc mark{background:rgba(222,91,60,.12);color:var(--ink);padding:0 2px;border-bottom:3px solid var(--accent);}
+  .rv-dim{opacity:.45;}
+  .rv-note{padding:28px 28px;border-left:3px solid var(--accent);display:flex;flex-direction:column;gap:12px;}
+  .rv-flag{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;color:#9a3219;}
+  .rv-flag::before{content:"";width:18px;height:8px;background:var(--accent);}
+  .rv-note p{font-size:15px;line-height:1.5;color:var(--ink);}
+  .rv-note .rv-k{margin-top:6px;}
+  .rv-red{font-family:Georgia,var(--font-display),serif;}
+  .rv-red s{color:#9a3219;text-decoration-thickness:2px;}
+  .rv-red ins{color:var(--blue);text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:3px;font-weight:600;}
+  .rv-link{margin-top:auto;font-family:var(--font-mono);font-size:12px;letter-spacing:.04em;color:var(--blue);text-decoration:none;padding-top:8px;}
+  .rv-link:hover{text-decoration:underline;}
+  @media (max-width:760px){.rv{grid-template-columns:1fr;}.rv-note{border-left:none;border-top:3px solid var(--accent);}.pb-rows div{grid-template-columns:1fr;gap:4px;}.pb{padding:24px;}}
   .about-head{text-align:center;display:flex;flex-direction:column;align-items:center;}
   .about-head h2{margin:0 auto !important;}
   .about-head .lead{margin:24px auto 0;max-width:54ch;color:var(--bg);}
@@ -447,24 +486,23 @@
 <div class="hero-main">
 <div class="eyebrow eyebrow-row">Joan from Legal</div>
 <h1>Legal automation made <span class="accent">easy</span></h1>
-<p class="sub hero-tag">Joan turns your past contracts into a playbook, then reviews new ones against it.</p>
+<p class="sub">Joan from Legal reads the contracts, redlines and versions your team has already produced, and turns them into your playbook: the structure behind your day-to-day decisions that you never had time to build.</p>
+<p class="sub" style="margin-top:16px;">The <span class="ul">Playbook Engine</span> is the foundation for the <span class="ul">Contract Reviewer</span>, so every review is fast and consistent.</p>
 <div class="demo" aria-label="Demo"><div class="demo-play" aria-hidden="true"></div><div class="demo-label">Demo</div></div>
-<p class="sub">Joan from Legal reads the contracts, redlines, and versions your team has already produced up until today — and turns them into your playbook, provides structure in your day to day decision making processes which your department never had time to build.</p>
-<p class="sub" style="margin-top:16px;">The <span class="ul">Playbook Engine</span> is the starting point for your automated <span class="ul">Contract Reviewer</span> to work in a fast and consistent manner.</p>
 </div>
 </div>
 </div>
 <svg class="logo-watermark" viewBox="0 0 214.73 104.78" aria-hidden="true"><use href="#joan-logo"></use></svg>
 </section>
 <section class="facts"><div class="wrap"><div class="facts-row">
-<div class="fact"><p>Pay per review, not seats or subscriptions.</p></div>
-<div class="fact"><p>No lengthy sales process, easy to implement</p></div>
-<div class="fact"><p>Additional legal support available on request, at extra cost</p></div>
+<div class="fact"><p>Pay per review. No seats.</p></div>
+<div class="fact"><p>No lengthy sales process. Quick to set up.</p></div>
+<div class="fact"><p>Extra legal support on request, at additional cost.</p></div>
 </div></div></section>
 <section class="problem upside" id="upside">
 <div class="wrap reveal">
 <h2>The upside</h2>
-<p class="lead up-lead">Add a layer of intelligence and you can now review your contracts in minutes, <span class="ul">negotiate with confidence and precision</span>.</p>
+<p class="lead up-lead">Review contracts in minutes. <span class="ul">Negotiate with confidence and precision.</span></p>
 <div class="up-grid">
 <div class="up"><div class="up-txt"><h3>Your standards, not a generic market standard</h3><p>Reviews are based on the positions your team has already negotiated and signed off. They aren't based on what an AI thinks is "normal".</p></div></div>
 <div class="up"><div class="up-txt"><h3>The same answer, whoever reviews</h3><p>A junior colleague and a senior counsel get the same flags on the same clause. There's less rework, and fewer surprises after signing.</p></div></div>
@@ -478,17 +516,17 @@
 <div class="wrap reveal">
 <div class="approach-head">
 <h2>The approach</h2>
-<div class="product-name">The playbook engine</div>
-<p class="lead">We <span class="ul">extract and analyze</span> the work you've already done. Instead of asking the team to author structure from nothing, we retrieve the decisions from the contracts they've already negotiated. One pass produces three things at once.</p>
+<div class="product-name">The Playbook Engine</div>
+<p class="lead">Joan <span class="ul">extracts and analyzes</span> the work your team has already done. No need to build a structure from scratch: Joan retrieves the decisions from contracts you've already negotiated. One pass produces three things.</p>
 </div>
 <div class="three">
-<div class="item"><div class="k">Output 01</div><h3>A draft playbook</h3><p>Of the positions the team actually takes — surfaced from the redlines, not invented.</p></div>
-<div class="item"><div class="k">Output 02</div><h3>Contract management structure</h3><p>Every document is tagged by counterparty, deal type, clause and version, so everything is easy to find.</p></div>
+<div class="item"><div class="k">Output 01</div><h3>A draft playbook</h3><p>Built from the positions your team actually takes. Taken from the redlines, not invented.</p></div>
+<div class="item"><div class="k">Output 02</div><h3>A clear filing structure</h3><p>Every document is tagged by counterparty, deal type, clause and version, so everything is easy to find.</p></div>
 <div class="item"><div class="k">Output 03</div><h3>A searchable decision history</h3><p>Everything that was decided, ready the moment a similar question comes up again.</p></div>
 </div>
 <div class="approach-head" style="margin-top:96px;">
-<div class="product-name" style="margin-top:0;">The contract reviewer</div>
-<p class="lead">With the playbook as your own knowledge base and framework, contracts can be reviewed quickly and consistently</p>
+<div class="product-name" style="margin-top:0;">The Contract Reviewer</div>
+<p class="lead">With your playbook as the framework, Joan reviews every contract quickly and consistently.</p>
 </div>
 <div class="three">
 <div class="item"><div class="k">Output 01</div><h3>Reviewed against your playbook</h3><p>Add a contract and Joan reviews it against your extracted and signed-off playbook.</p></div>
@@ -500,10 +538,10 @@
 <aside class="pull reveal"><div class="wrap"><blockquote>Small add-on, with big impact</blockquote></div></aside>
 <section class="labor">
 <div class="wrap reveal">
-<div class="top labor-head"><h2>The honest division of labor</h2><p class="lead">The data shows <span class="ul">what</span> the team decided. The team supplies the <span class="ul">judgment</span>. A first draft of your playbook within a day, with your judgment added where it actually matters.</p></div>
+<div class="top labor-head"><h2>The honest division of labor</h2><p class="lead">Your contracts show what your team decided, not why. Joan drafts the playbook within a day. Your team adds the <span class="ul">judgment</span> where it matters.</p></div>
 <div class="split2">
-<div class="half"><div class="label">The system</div><h3>Generates the <span class="blue">first draft.</span></h3><p>One pass over the existing contracts produces the playbook, the structure, and the records — automatically.</p></div>
-<div class="half"><div class="label">The team</div><h3>Supplies the <span class="red">judgment.</span></h3><p>Their only new task: review the draft and add the reasoning behind each position where needed — the one thing the data can't capture.</p></div>
+<div class="half"><div class="label">The system</div><h3>Generates the <span class="blue">first draft.</span></h3><p>One pass over the existing contracts produces the playbook, the filing structure and the decision history. Automatically.</p></div>
+<div class="half"><div class="label">The team</div><h3>Supplies the <span class="red">judgment.</span></h3><p>Your team's only new task: review the draft and add the reasoning behind each position where needed. That's the one thing the data can't capture.</p></div>
 </div>
 </div>
 </section>
@@ -511,7 +549,7 @@
 <div class="wrap reveal">
 <div class="data-head"><h2>How to get started</h2></div>
 <div class="start-grid">
-<div class="start-card"><div class="start-big">10</div><div class="start-txt"><h3>Contract negotiations</h3><p>From the Word files with redlining to the final PDF. That's what Joan needs to understand your decision making.</p></div></div>
+<div class="start-card"><div class="start-big">10</div><div class="start-txt"><h3>Contract negotiations</h3><p>Share 10 recent negotiations, from the first redlined Word file to the signed PDF. That's enough for Joan to learn how you make decisions.</p></div></div>
 <div class="start-card"><div class="start-txt"><h3>Works where you already work</h3><p>Joan connects to the tools your team already uses.</p><div class="chips"><span>SharePoint</span><span>Google Drive</span><span>Word</span><span>Google Docs</span></div></div></div>
 </div>
 </div>
@@ -519,15 +557,15 @@
 <section class="data" id="data">
 <div class="wrap reveal">
 <div class="data-head"><h2>Your data</h2>
-<p class="lead">In short: your data stays yours, is kept separate, is not used to train the AI, and we arrange everything properly with a data processing agreement.</p></div>
+<p class="lead">In short: your data stays yours, is stored securely and separately, is not used to train the AI, and we arrange everything properly with a data processing agreement.</p></div>
 <div class="qa-list">
 <details class="qa"><summary>What data does Joan use?</summary><p>Contracts, previous negotiation outcomes and the agreements in your playbook. Joan from Legal has no access to any systems other than the ones you open up for it.</p></details>
 <details class="qa"><summary>Where is the data stored?</summary><p>Your data is stored in <span class="tbd">[country/region, e.g. the EU]</span> with <span class="tbd">[hosting provider]</span>. It stays within a secure environment that is yours alone.</p></details>
-<details class="qa"><summary>Who has access?</summary><p>Only the people you designate. Joan from Legal (and the team behind Joan) does not look at the content, unless you explicitly ask us to for support.</p></details>
+<details class="qa"><summary>Who has access?</summary><p>Only the people you designate. Neither Joan nor our team looks at the content, unless you ask us to for support.</p></details>
 <details class="qa"><summary>Is the AI trained on our data?</summary><p>No. Your data is only used to create your playbook and your reviews. It is not used to train the AI and never ends up with other customers. <span class="tbd">[To check: which AI model does Joan use, and what do its terms say about training and retention?]</span></p></details>
 <details class="qa"><summary>How is the data secured?</summary><p><span class="tbd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p></details>
 <details class="qa"><summary>Which AI provider does Joan use?</summary><p><span class="tbd">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p></details>
-<details class="qa"><summary>Personal data</summary><p>Contracts sometimes contain names and contact details. For this we sign a data processing agreement, so everything is handled in line with the GDPR.</p></details>
+<details class="qa"><summary>What about personal data?</summary><p>Contracts sometimes contain names and contact details. For this we sign a data processing agreement, so everything is handled in line with the GDPR.</p></details>
 <details class="qa"><summary>What if we stop?</summary><p>You remain the owner of your data and your playbook. When you stop, you get everything back and your data is deleted within <span class="tbd">[period]</span>.</p></details>
 </div>
 </div>
@@ -535,15 +573,15 @@
 <section class="about" id="about">
 <div class="wrap reveal">
 <div class="about-head"><h2>Our story</h2>
-<p class="lead">We started in Marketing and Law, met at MediaMonks, and spent <em>40 years</em> there between us.</p></div>
+<p class="lead">We started in marketing and law, met at MediaMonks, and spent <em>40 years</em> there between us.</p></div>
 <div class="roles">
 <div class="role"><div class="role-name">Britt van Engelen</div><div class="r">Global legal counsel</div><p>Negotiated thousands of contracts with global and local brands, agencies, and contractors.</p></div>
 <div class="role"><div class="role-name">Nathalie Visser</div><div class="r">Executive producer · NY &amp; Amsterdam</div><p>Handled hundreds of NDAs and MSAs at a relentless pace, where speed couldn't cost consistency.</p></div>
-<div class="role"><div class="role-name">Sander van der Vegte</div><div class="r">Creative technologist · Head of Labs R&amp;D</div><p>New tech and prototypes are ingrained in his DNA — turning rough ideas into working tools.</p></div>
+<div class="role"><div class="role-name">Sander van der Vegte</div><div class="r">Creative technologist · Head of Labs R&amp;D</div><p>Led R&amp;D at MediaMonks Labs, prototyping with new technology for global brands. Turns rough ideas into working tools.</p></div>
 </div>
 <div class="credo">
-<p class="big">We know that we are not the only ones with this idea. But we have built Joan from Legal for <em>ourselves</em> first — in a way that works for us, and is easy to use and understand. Unlike generic tools, Joan learns from your own negotiations, not a generic market standard.</p>
-<p>Joan reviews a contract faster and more consistently than doing it by hand. No difficult onboarding, no learning curve. Just ease of use — transparent and reliable.</p>
+<p class="big">Plenty of tools promise faster contract review. We built Joan from Legal for <em>ourselves</em> first, so it's easy to use and understand. And it learns from your own negotiations, not a market standard.</p>
+<p>Joan reviews a contract faster and more consistently than doing it by hand. No difficult onboarding, no learning curve. Just ease of use: transparent and reliable.</p>
 </div>
 </div>
 </section>
